@@ -1,5 +1,7 @@
 # arduino-uno-car
 
-![3d-1](pcb/assets/3d-1.png)
-![3d-2](pcb/assets/3d-2.png)
-![all](pcb/assets/all.png)
+<img src="./pcb/assets/3d-1.png" alt="3d-1" style="max-width: 300px" />
+
+<img src="./pcb/assets/3d-2.png" alt="3d-2" style="max-width: 300px" />
+
+<img src="./pcb/assets/all.png" alt="all" style="max-width: 300px" />
