@@ -26,6 +26,8 @@ class HC4067 {
       // Default to disabled
       digitalWrite(_enablePin, HIGH);
     }
+
+    pinMode(_sig, INPUT);
   }
 
   // Enable the multiplexer
@@ -75,27 +77,27 @@ class HC4067 {
   }
 
   // Read an analog value from the signal pin
-  int read() {
+  inline int read() {
     return analogRead(_sig);
   }
 
   // Read a digital value from the signal pin
-  bool boolRead() {
+  inline bool boolRead() {
     return digitalRead(_sig);
   }
 
   // Get the currently selected channel
-  uint8_t getChannel() {
+  inline uint8_t getChannel() {
     return _channel;
   }
 
   // Move to the next channel
-  bool next() {
+  inline bool next() {
     return setChannel((_channel + 1) % 16);
   }
 
   // Move to the previous channel
-  bool prev() {
+  inline bool prev() {
     return setChannel((_channel + 15) % 16);
   }
 
@@ -105,7 +107,5 @@ class HC4067 {
   uint8_t _channel = 0;      // Current channel
   uint8_t _sig = A0;         // Signal pin, default is A0
 };
-
-HC4067 mux(2, 3, 4, 12, A0);
 
 #endif /* _HC4067_H */
