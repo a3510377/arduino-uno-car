@@ -1,0 +1,3 @@
+[submodule "lib/Arduino-MK_HC595"]
+	path = lib/Arduino-MK_HC595
+	url = https://github.com/a3510377/Arduino-MK_HC595
