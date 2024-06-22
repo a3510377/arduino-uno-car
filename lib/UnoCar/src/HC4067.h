@@ -26,8 +26,6 @@ class HC4067 {
       // Default to disabled
       digitalWrite(_enablePin, HIGH);
     }
-
-    pinMode(_sig, INPUT);
   }
 
   // Enable the multiplexer

@@ -1,21 +1,25 @@
 #include <Arduino.h>
 #include <UnoCar.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#define LED_START_FLASHES (0)
+
+UnoCar uno_car(8);
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Serial.begin(9600);
+
+  uno_car.init();
+  pinMode(13, INPUT);
+  digitalWrite(13, HIGH);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  uno_car.update_mux(50);
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  Serial;
-  mux.setChannel(10);
-  mux.read();
+  for (int i = 0; i < 8; i++) {
+    Serial.print(uno_car.get(i));
+    Serial.print(",");
+  }
+
+  Serial.println();
 }
