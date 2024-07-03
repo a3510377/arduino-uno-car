@@ -93,7 +93,7 @@ class UnoCar {
    * @return the value at the specified index, or 0 if the index is greater than
    * 15
    */
-  inline uint8_t get(uint8_t index) {
+  inline int get(uint8_t index) {
     return _values[min(16, index)];
   }
 
