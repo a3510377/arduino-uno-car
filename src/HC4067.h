@@ -7,13 +7,14 @@ class HC4067 {
  public:
   // Constructor: initializes the multiplexer with the given control pins and
   // signal pin.
-  HC4067(uint8_t s0, uint8_t s1, uint8_t s2, uint8_t s3, uint8_t _sig = A0,
+  HC4067(uint8_t s0, uint8_t s1, uint8_t s2, uint8_t s3, uint8_t sig = A0,
          uint8_t e = 255) {
     _pins[0] = s0;
     _pins[1] = s1;
     _pins[2] = s2;
     _pins[3] = s3;
     _enablePin = e;
+    _sig = sig;
 
     // Set the control pins as output
     for (uint8_t i = 0; i < 4; i++) {

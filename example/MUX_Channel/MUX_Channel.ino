@@ -9,19 +9,6 @@ void setup() {
   Serial.begin(9600);
 
   uno_car.init();  // 初始化 UnoCar
-
-  for (int i = 0; i < 3; i++) {
-    uno_car.leds.setAll(HIGH);  // 關閉所有燈
-    delay(200);
-    uno_car.leds.setAll(LOW);  // 開啟所有燈
-    delay(200);
-  }
-
-  for (int i = 0; i < 8; i++) {
-    uno_car.leds[0] = 1;  // 設定第一個LED為暗
-    delay(500);
-    uno_car.leds.move(1);  // 設定LED往下移動
-  }
 }
 
 void loop() {
@@ -39,11 +26,5 @@ void loop() {
       }
     }
     Serial.println();
-  }
-
-  if (uno_car.isTouch()) {     // 檢查是否觸碰到球塔
-    uno_car.leds.setAll(LOW);  // 開啟所有燈
-    delay(1000);
-    uno_car.leds.setAll(HIGH);  // 關閉所有燈
   }
 }

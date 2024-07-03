@@ -25,6 +25,8 @@
 #define LEDS_LATCH A2
 #define LEDS_DATA A3
 
+#define RULE_SPEED(speed) (constrain(abs(speed), 0, 255))
+
 class UnoCar {
  public:
   MKHC595<1> leds;
@@ -99,12 +101,22 @@ class UnoCar {
     return !digitalRead(MIXER_PIN);
   }
 
+  void drive(int speed) {
+    driveA(speed);
+    driveA(speed);
+  }
+
+  void drive(int speedA, int speedB) {
+    driveA(speedA);
+    driveA(speedB);
+  }
+
   inline void driveA(int speed) {
-    _drive(AIN1_PIN, AIN2_PIN, PWMA_PIN, speed);
+    _drive(AIN1_PIN, AIN2_PIN, PWMA_PIN, constrain(speed, 0, 255));
   }
 
   inline void driveB(int speed) {
-    _drive(BIN1_PIN, BIN2_PIN, PWMB_PIN, speed);
+    _drive(BIN1_PIN, BIN2_PIN, PWMB_PIN, constrain(speed, 0, 255));
   }
 
   void brakeA() {
@@ -125,34 +137,40 @@ class UnoCar {
     digitalWrite(STBY_PIN, LOW);
   }
 
-  void forward(uint8_t speed) {
+  void forward(int speed = 255) {
+    speed = RULE_SPEED(speed);
+
     driveA(speed);
     driveB(speed);
   }
-  void forward(uint8_t speedA = 255, uint8_t speedB = 255) {
-    driveA(speedA);
-    driveB(speedB);
+  void forward(int speedA, int speedB) {
+    driveA(RULE_SPEED(speedA));
+    driveB(RULE_SPEED(speedB));
   }
 
-  void back(uint8_t speed) {
+  void back(int speed = 255) {
+    speed = RULE_SPEED(speed);
+
     driveA(-speed);
     driveB(-speed);
   }
-  void back(uint8_t speedA = 255, uint8_t speedB = 255) {
-    driveA(-speedA);
-    driveB(-speedB);
+  void back(int speedA, int speedB) {
+    driveA(-RULE_SPEED(speedA));
+    driveB(-RULE_SPEED(speedB));
   }
 
-  void left(uint8_t speed) {
-    uint8_t temp = speed / 2;
-    driveA(-temp);
-    driveB(temp);
+  void left(int speed) {
+    speed = RULE_SPEED(speed) / 2;
+
+    driveA(-speed);
+    driveB(speed);
   }
 
   void right(uint8_t speed) {
-    uint8_t temp = speed / 2;
-    driveA(temp);
-    driveB(-temp);
+    speed = RULE_SPEED(speed) / 2;
+
+    driveA(speed);
+    driveB(-speed);
   }
 
  private:
@@ -165,7 +183,7 @@ class UnoCar {
 
     digitalWrite(in1, speed > 0);
     digitalWrite(in2, speed < 0);
-    analogWrite(speed_pin, speed);
+    analogWrite(speed_pin, abs(speed));
   }
 };
 

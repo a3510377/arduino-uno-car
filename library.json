@@ -1,12 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/schema/library.json",
-  "name": "HC595",
-  "version": "1.0.0",
-  "description": "A powerful but easy to use 74HC595 Library",
-  "keywords": ["74HC595", "HC595", "Shift Register", "Arduino"],
+  "name": "UnoCar",
+  "version": "0.1.0",
+  "description": "A library for controlling the car with Arduino Uno Super ArduinoUnoCar-1.0.3-fix-2 Control the car library for Arduino Uno",
+  "keywords": ["ArduinoUno", "UnoCar", "Arduino"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/a3510377/MKHC595"
+    "url": "https://github.com/a3510377/arduino-uno-car"
   },
   "authors": [
     {
@@ -15,7 +15,6 @@
       "url": "https://github.com/a3510377"
     }
   ],
-  "license": "MIT",
   "frameworks": "arduino",
   "platforms": "*"
 }
