@@ -18,6 +18,7 @@ class HC4067 {
     // Set the control pins as output
     for (uint8_t i = 0; i < 4; i++) {
       pinMode(_pins[i], OUTPUT);
+      digitalWrite(_pins[i], HIGH);
     }
 
     // If an enable pin is provided, set it as output and disable by default
@@ -102,7 +103,7 @@ class HC4067 {
  protected:
   uint8_t _pins[4];          // Control pins
   uint8_t _enablePin = 255;  // Enable pin, default is not used
-  uint8_t _channel = 0;      // Current channel
+  uint8_t _channel = 0xf;    // Current channel
   uint8_t _sig = A0;         // Signal pin, default is A0
 };
 

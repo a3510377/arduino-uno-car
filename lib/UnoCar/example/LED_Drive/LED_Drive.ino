@@ -40,9 +40,9 @@ void loop() {
   uno_car.leds.setAll(HIGH);  // 關閉所有燈
   delay(500);
   for (int i = 0; i < 8; i++) {
-    uno_car.leds[i] = LOW;  // 設定第 i 個LED為開
+    uno_car.leds[i] = LOW;  // 設定第 (i + 1) 個LED為開
     delay(200);
-    uno_car.leds[i] = HIGH;  // 設定第 i 個LED為關
+    uno_car.leds[i] = HIGH;  // 設定第 (i + 1) 個LED為關
     delay(200);
   }
   delay(500);
