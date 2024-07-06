@@ -15,8 +15,8 @@ MKHC595_PIN KEYWORD1
 
 # UnoCar
 init KEYWORD2
-update_mux KEYWORD2
 get KEYWORD2
+getChannel KEYWORD2
 isTouch KEYWORD2
 drive KEYWORD2
 driveA KEYWORD2
