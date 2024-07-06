@@ -7,7 +7,6 @@ on:
       - .github/workflows/report-size-deltas.yml
   pull_request:
     paths:
-      - .github/workflows/report-size-deltas.yml
       - src/**
   workflow_dispatch:
   repository_dispatch:
