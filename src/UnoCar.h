@@ -27,6 +27,10 @@
 
 #define RULE_SPEED(speed) (constrain(abs(speed), 0, 255))
 
+#ifndef DEFAULT_SPEED
+  #define DEFAULT_SPEED 255
+#endif
+
 class UnoCar {
  public:
   MKHC595<1> leds;
@@ -103,19 +107,18 @@ class UnoCar {
 
   void drive(int speed) {
     driveA(speed);
-    driveA(speed);
+    driveB(speed);
   }
 
   void drive(int speedA, int speedB) {
-    driveA(speedA);
-    driveA(speedB);
+    _driveAB(speedA, speedB);
   }
 
-  inline void driveA(int speed) {
+  inline void driveA(int speed = DEFAULT_SPEED) {
     _drive(AIN1_PIN, AIN2_PIN, PWMA_PIN, constrain(speed, 0, 255));
   }
 
-  inline void driveB(int speed) {
+  inline void driveB(int speed = DEFAULT_SPEED) {
     _drive(BIN1_PIN, BIN2_PIN, PWMB_PIN, constrain(speed, 0, 255));
   }
 
@@ -127,50 +130,52 @@ class UnoCar {
   }
 
   void brakeB() {
-    driveA(0);
+    driveB(0);
   }
   inline void stopB() {
     brakeB();
+  }
+
+  void brake() {
+    stopA();
+    stopB();
+  }
+  inline void stop() {
+    brake();
   }
 
   void standby() {
     digitalWrite(STBY_PIN, LOW);
   }
 
-  void forward(int speed = 255) {
+  void forward(int speed = DEFAULT_SPEED) {
     speed = RULE_SPEED(speed);
 
-    driveA(speed);
-    driveB(speed);
+    drive(speed);
   }
   void forward(int speedA, int speedB) {
-    driveA(RULE_SPEED(speedA));
-    driveB(RULE_SPEED(speedB));
+    _driveAB(RULE_SPEED(speedA), RULE_SPEED(speedB));
   }
 
-  void back(int speed = 255) {
-    speed = RULE_SPEED(speed);
+  void back(int speed = DEFAULT_SPEED) {
+    speed = -RULE_SPEED(speed);
 
-    driveA(-speed);
-    driveB(-speed);
+    drive(speed);
   }
   void back(int speedA, int speedB) {
-    driveA(-RULE_SPEED(speedA));
-    driveB(-RULE_SPEED(speedB));
+    _driveAB(-RULE_SPEED(speedA), -RULE_SPEED(speedB));
   }
 
-  void left(int speed) {
-    speed = RULE_SPEED(speed) / 2;
+  void left(int speed = DEFAULT_SPEED) {
+    speed = RULE_SPEED(speed);
 
-    driveA(-speed);
-    driveB(speed);
+    _driveAB(-speed, speed);
   }
 
-  void right(uint8_t speed) {
-    speed = RULE_SPEED(speed) / 2;
+  void right(int speed = DEFAULT_SPEED) {
+    speed = RULE_SPEED(speed);
 
-    driveA(speed);
-    driveB(-speed);
+    _driveAB(speed, -speed);
   }
 
  private:
@@ -184,6 +189,11 @@ class UnoCar {
     digitalWrite(in1, speed > 0);
     digitalWrite(in2, speed < 0);
     analogWrite(speed_pin, abs(speed));
+  }
+
+  inline void _driveAB(int speedA, int speedB) {
+    driveA(speedA);
+    driveB(speedB);
   }
 };
 
