@@ -64,41 +64,13 @@ class UnoCar {
     pinMode(STBY_PIN, OUTPUT);
   }
 
-  /**
-   * Updates the multiplexer with the values of each channel.
-   *
-   * @param interval The time interval in milliseconds between updates. If not
-   * specified, the function will update the mux immediately.
-   *
-   * @return `true` if the mux was updated, `false` if the update was skipped
-   * because the interval has not passed yet.
-   */
-  bool update_mux(uint16_t interval = 0) {
-    if (millis() - _last_update_mux < interval) {
-      return false;
-    }
-
-    for (uint8_t i = 0; i < _sensor_count; i++) {
-      mux.setChannel(i);
-      _values[i] = mux.read();
-    }
-
-    mux.disable();
-    _last_update_mux = millis();
-    return true;
+  inline int get(uint8_t index) {
+    mux.setChannel(index);
+    return mux.read();
   }
 
-  /**
-   * Returns the value at the specified index in the `_values` array.
-   * _values contains MUX read values.
-   *
-   * @param index the index of the value to retrieve
-   *
-   * @return the value at the specified index, or 0 if the index is greater than
-   * 15
-   */
-  inline int get(uint8_t index) {
-    return _values[min(16, index)];
+  inline uint8_t getChannel(uint8_t index) {
+    return mux.getChannel();
   }
 
   inline uint8_t isTouch() {

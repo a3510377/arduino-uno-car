@@ -12,19 +12,18 @@ void setup() {
 }
 
 void loop() {
-  if (uno_car.update_mux()) {  // 讀取感測器數據
-    for (int i = 0; i < 8; i++) {
-      Serial.print(uno_car.get(i));  // 輸出感測器數據
+  for (int i = 0; i < 8; i++) {
+    int value = uno_car.get(i);
+    Serial.print(value);  // 輸出感測器數據
 
-      if (i != 7) Serial.print(",");
+    if (i != 7) Serial.print(",");
 
-      // 檢查是否超過閥值
-      if (uno_car.get(i) < 300) {
-        uno_car.leds[i] = HIGH;  // 關閉 LED
-      } else {
-        uno_car.leds[i] = LOW;  // 開啟LED
-      }
+    // 檢查是否超過閥值
+    if (value < 300) {
+      uno_car.leds[i] = HIGH;  // 關閉 LED
+    } else {
+      uno_car.leds[i] = LOW;  // 開啟LED
     }
-    Serial.println();
   }
+  Serial.println();
 }
