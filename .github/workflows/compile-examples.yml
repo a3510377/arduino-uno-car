@@ -31,10 +31,14 @@ jobs:
 
       matrix:
         board:
-          - fqbn: arduino:avr:nano
+          - fqbn: arduino:avr:uno
             platforms: |
               - name: arduino:avr
-            artifact-name-suffix: arduino-avr-nano
+            artifact-name-suffix: arduino-avr-uno
+          # - fqbn: arduino:avr:nano
+          #   platforms: |
+          #     - name: arduino:avr
+          #   artifact-name-suffix: arduino-avr-nano
           # - fqbn: arduino:avr:mega
           #   platforms: |
           #     - name: arduino:avr
