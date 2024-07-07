@@ -87,11 +87,11 @@ class UnoCar {
   }
 
   inline void driveA(int speed = DEFAULT_SPEED) {
-    _drive(AIN1_PIN, AIN2_PIN, PWMA_PIN, constrain(speed, 0, 255));
+    _drive(AIN1_PIN, AIN2_PIN, PWMA_PIN, speed);
   }
 
   inline void driveB(int speed = DEFAULT_SPEED) {
-    _drive(BIN2_PIN, BIN1_PIN, PWMB_PIN, constrain(speed, 0, 255));
+    _drive(BIN2_PIN, BIN1_PIN, PWMB_PIN, speed);
   }
 
   void brakeA() {
