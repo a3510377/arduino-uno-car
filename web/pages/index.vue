@@ -6,21 +6,21 @@
           <UInput
             v-model="state.hex"
             placeholder="16進制"
-            @input="userUpdateInputEvent.bind(null, 16)"
+            @input="({target: {value}}: InputEvent) => userUpdateInputEvent(value, 16)"
           />
         </UFormGroup>
         <UFormGroup label="DEC - 10進制" name="dec" eager-validation>
           <UInput
             v-model="state.dec"
             placeholder="10進制"
-            @input="userUpdateInputEvent.bind(null, 10)"
+            @input="({target: {value}}: InputEvent) => userUpdateInputEvent(value)"
           />
         </UFormGroup>
         <UFormGroup label="BIN - 2進制" name="bin" eager-validation>
           <UInput
             v-model="state.bin"
             placeholder="2進制"
-            @input="userUpdateInputEvent.bind(null, 2)"
+            @input="({target: {value}}: InputEvent) => userUpdateInputEvent(value, 2)"
           />
         </UFormGroup>
       </UForm>
@@ -112,17 +112,13 @@ const mouseEvent = (index: number, start: boolean) => {
 };
 
 const userUpdate = (value: number) => {
-  console.log(value);
-
   state.dec = value.toString();
   state.bin = value.toString(2).padStart(8, '0');
   state.hex = value.toString(16).padStart(2, '0');
 };
 
 let timer: NodeJS.Timeout | null = null;
-const userUpdateInputEvent = (base: number, event: InputEvent) => {
-  const value = event.target.value;
-
+const userUpdateInputEvent = (value: string, base: number = 10) => {
   if (timer) clearTimeout(timer);
 
   isUserUpdate.value = true;
