@@ -60,7 +60,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: './.output/public'
+          path: './web/.output/public'
 
       - name: Deploy to GitHub Pages
         id: deployment
