@@ -47,13 +47,13 @@
         </div>
       </div>
       <div class="grid grid-cols-5 gap-10 mt-20 select-none">
-        <UButton block @click="binValue >>= 1">左移一位</UButton>
+        <UButton block @click="binValue = (binValue << 1) & 0xff">
+          左移一位
+        </UButton>
         <UButton block @click="binValue = 0xff">設定全白</UButton>
         <UButton block @click="binValue = 0x00">設定全黑</UButton>
         <UButton block @click="binValue = ~binValue & 0xff">反轉數值</UButton>
-        <UButton block @click="binValue = (binValue << 1) & 0xff">
-          右移一位
-        </UButton>
+        <UButton block @click="binValue >>= 1">右移一位</UButton>
       </div>
     </div>
   </div>
