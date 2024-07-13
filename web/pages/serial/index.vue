@@ -6,6 +6,12 @@
           v-for="(value, i) in data"
           :key="i"
           class="bg-white text-slate-600 flex items-center justify-center cursor-pointer h-20 rounded-2xl flex-col hover:bg-gray-300 transition-colors duration-200 ease-in-out"
+          :class="{
+            '!bg-slate-600 !text-white hover:!bg-slate-700': !(
+              binValue &
+              (1 << (8 - i))
+            ),
+          }"
         >
           <div
             v-text="value"
