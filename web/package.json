@@ -14,7 +14,7 @@
     "@vueuse/core": "^10.11.0",
     "@vueuse/head": "^2.0.0",
     "@vueuse/nuxt": "^10.11.0",
-    "nuxt": "^3.12.3",
+    "nuxt": "^3.12.4",
     "vue": "latest",
     "zod": "^3.23.8"
   },
