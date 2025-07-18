@@ -7,14 +7,13 @@ class HC4067 {
  public:
   // Constructor: initializes the multiplexer with the given control pins and
   // signal pin.
-  HC4067(uint8_t s0, uint8_t s1, uint8_t s2, uint8_t s3, uint8_t sig = A0,
-         uint8_t e = 255) {
-    _pins[0] = s0;
-    _pins[1] = s1;
-    _pins[2] = s2;
-    _pins[3] = s3;
+  HC4067(uint8_t s0, uint8_t s1, uint8_t s2, uint8_t s3, uint8_t sig = A0, uint8_t e = 255) {
+    _pins[0]   = s0;
+    _pins[1]   = s1;
+    _pins[2]   = s2;
+    _pins[3]   = s3;
     _enablePin = e;
-    _sig = sig;
+    _sig       = sig;
 
     // Set the control pins as output
     for (uint8_t i = 0; i < 4; i++) {
@@ -78,7 +77,16 @@ class HC4067 {
 
   // Read an analog value from the signal pin
   inline int read() {
-    return analogRead(_sig);
+    uint8_t old_ADCSRA = ADCSRA;
+    // Reduce ADC clock prescaler for faster reading
+    ADCSRA = (old_ADCSRA & 0xf8) | 0x04;
+
+    // Dummy analog read to stabilize
+    analogRead(_sig);
+
+    int adc = analogRead(_sig);
+    ADCSRA  = old_ADCSRA;
+    return adc;
   }
 
   // Read a digital value from the signal pin
@@ -104,8 +112,8 @@ class HC4067 {
  protected:
   uint8_t _pins[4];          // Control pins
   uint8_t _enablePin = 255;  // Enable pin, default is not used
-  uint8_t _channel = 0xf;    // Current channel
-  uint8_t _sig = A0;         // Signal pin, default is A0
+  uint8_t _channel   = 0xf;  // Current channel
+  uint8_t _sig       = A0;   // Signal pin, default is A0
 };
 
 #endif /* _HC4067_H */
